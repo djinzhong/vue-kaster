@@ -7,8 +7,9 @@
       <li v-for="(item,index) in list"
           :key="index">{{item}}</li>
     </ul>
-    <son v-bind="dataPoprs"
-         @updata="updata" />
+    <son :dataprops="dataprops"
+         @updata="updata"
+         @updata1="updaat1" />
   </div>
 </template>
 
@@ -25,15 +26,19 @@ export default {
     }
   },
   computed: {
-    dataPoprs: function () {
+    dataprops: function () {
       return {
-        message: this.message,
-        list: this.list
+        name: this.message,
+        type: this.list
       }
     }
   },
   methods: {
     updata (newValue) {
+      this.message = newValue.name
+      this.list = newValue.type
+    },
+    updaat1 (newValue) {
       this.message = newValue.name
       this.list = newValue.type
     }
