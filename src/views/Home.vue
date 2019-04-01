@@ -6,9 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
-
 export default {
   name: 'Home'
 }
@@ -21,6 +18,7 @@ export default {
   font-size 0
   img
     width 100%
+    min-width 1400px
     height 100%
 </style>
 
