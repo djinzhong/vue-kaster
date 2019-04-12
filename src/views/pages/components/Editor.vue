@@ -1,7 +1,9 @@
 <template>
   <div style="margin: 20px">
     <vue-ueditor-wrap v-model="msg"
-                      :config="myConfig"></vue-ueditor-wrap>
+                      :config="myConfig">
+    </vue-ueditor-wrap>
+    <input type="text" v-model="msg" style="width: 100%">
   </div>
 </template>
 
