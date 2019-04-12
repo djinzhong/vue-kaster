@@ -24,7 +24,7 @@
       <el-table-column prop="tag"
                        label="标签"
                        width="100"
-                       :filters="[{ text: '家', value: 1 }, { text: '公司', value: 2 }]"
+                       :filters="[{ text: '家', value: 1 }, { text: '公司', value: 2 }, { text: '出租屋', value: 3 }]"
                        :filter-method="filterTag"
                        filter-placement="bottom-end">
 
@@ -41,22 +41,22 @@ export default {
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄',
-        tag: 1
+        tag: '1|2'
       }, {
         date: '2016-05-04',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1517 弄',
-        tag: 2
+        tag: '2'
       }, {
         date: '2016-05-01',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1519 弄',
-        tag: 1
+        tag: '1|3'
       }, {
         date: '2016-05-03',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1516 弄',
-        tag: 2
+        tag: '1|2|3'
       }]
     }
   },
@@ -71,7 +71,7 @@ export default {
       return row.address
     },
     filterTag (value, row) {
-      return row.tag === value
+      return row.tag.indexOf(value) !== -1
     },
     filterHandler (value, row, column) {
       const property = column['property']

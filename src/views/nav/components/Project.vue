@@ -15,11 +15,11 @@
     </el-menu-item-group>
     <el-menu-item-group>
       <template slot="title">方案</template>
-      <el-menu-item index="2-3"
+      <el-menu-item index="2-4"
                     :route="{name: 'project'}">方案列表</el-menu-item>
       <el-menu-item-group>
         <template slot="title">创建方案</template>
-        <el-menu-item index="2-4"
+        <el-menu-item index="2-5"
                       :route="{name: 'gameProjectList'}">即时比赛</el-menu-item>
       </el-menu-item-group>
     </el-menu-item-group>

@@ -2,7 +2,9 @@
   <div>
     <el-table :data="tableData"
               style="width: 100%"
-              height="calc(100% - 80px)">
+              height="100%">
+      <el-table-column type="index"
+                       width="50" />
       <!-- 基础数据 -->
       <dj-table-column v-for="(item,index) in manitoTableList"
                        :key="index"

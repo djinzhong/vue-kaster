@@ -1,6 +1,6 @@
 import { stringFormatter, typeFormatter } from 'utils/formatter' // 字符串拼接长度计算
 import { sortNumber } from 'utils/sortMethod' // 数字大小排序
-import { tableFilter } from 'utils/filter' // 数字大小排序
+import { tableFilter } from 'utils/filter' // 类型过滤
 
 const typeFiltersList = [
   { text: '民间大神', value: 1 },

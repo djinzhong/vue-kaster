@@ -1,5 +1,6 @@
 <template>
   <el-table-column :prop="item.prop"
+                   align="center"
                    :width="item.width"
                    :sortable="item.sortable"
                    :formatter="item.formatter"

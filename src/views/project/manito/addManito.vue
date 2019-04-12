@@ -3,7 +3,7 @@
     <dj-breadcrumb :routerList="[{
       router: {name: 'manitoList'}, name: '大神列表'
     },{
-      router: {name: 'addManito', query: {id: 0}}, name: '新增大神'
+      router: {name: 'addManito', query: {id: 0}}, name: `${text}大神`
     }]" />
     <el-form :model="form"
            label-width="140px"

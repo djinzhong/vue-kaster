@@ -16,6 +16,7 @@ module.exports = {
       .set('style', resolve('src/assets/style')) // 样式文件
       .set('components', resolve('src/components')) // 公共组件位置
       .set('router', resolve('src/router')) // 路由配置
+      .set('store', resolve('src/store')) // Vuex配置
       .set('views', resolve('src/views')) // 组件页面
   },
   lintOnSave: undefined
