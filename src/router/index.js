@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from 'views/Home.vue'
+import Home from 'views/Home'
+import Login from 'views/Login'
 import {
   addSubmoduleRoutes
 } from 'utils/projectStartup'
 
-//组件通信
-import communicationRoutes from 'router/communication/router'
-import componentsRouter from 'router/components/router'
+import mediaRouter from 'router/media/index'
+import projectRouter from 'router/project/index'
 
 Vue.use(Router)
 
@@ -15,14 +15,23 @@ const routes = [{
   path: '/',
   name: 'home',
   component: Home
+}, {
+  path: '/login',
+  name: 'login',
+  component: Login
+}, {
+  path: '/exercise',
+  name: 'exercise',
+  component: () => import('views/exercise/exercise')
 }]
 
 addSubmoduleRoutes(routes, {
-  '/communication/': communicationRoutes,
-  '/components/':  componentsRouter
+  '/media/': mediaRouter,
+  '/godPlan/': projectRouter
 })
 
-
 export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes: routes
 })

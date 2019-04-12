@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <img src="~images/nine.jpg"
          alt="">
   </div>
@@ -13,12 +13,12 @@ export default {
 
 <style lang='stylus' scoped>
 .home
-  height 100%
-  width 100%
   font-size 0
+  width 100%
+  padding 0
+  margin 0
   img
     width 100%
     min-width 1400px
     height 100%
 </style>
-

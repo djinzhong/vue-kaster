@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <Nav class="nav"></Nav>
+    <dj-nav class="nav" />
     <router-view class="home" />
   </div>
 </template>
 <script>
-import Nav from 'views/Nav.vue'
+import DjNav from 'views/nav/Nav.vue'
 export default {
   components: {
-    Nav: Nav
+    DjNav
   }
 }
 </script>
@@ -30,12 +30,20 @@ body {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  overflow: hidden;
   display: flex;
 }
 .nav {
+  width: 230px;
   height: 100%;
+  flex-shrink: 0;
 }
 .home {
-  flex: auto 1 1;
+  height: 100%;
+  width: calc(100% - 250px);
+  margin: 0 auto;
+  flex-shrink: 1;
+  padding: 20px 10px;
+  overflow: auto;
 }
 </style>
