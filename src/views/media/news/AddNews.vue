@@ -49,7 +49,7 @@
          <dj-checkbox :cityOptions="tagsList" :checkedDetails="checkedDetails" />
       </el-form-item>
       <el-form-item label="新闻内容">
-
+         <dj-ueditor />
       </el-form-item>
     </el-form>
   </div>
@@ -61,13 +61,14 @@ import { Switch } from 'element-ui'
 import { typeList } from '../config/table.config.js'
 import { mixin } from '../config/mixin.js'
 import DjUpload from 'components/DjUpload'
-import DjCheckbox from 'components/DjCheckbox '
+import DjCheckbox from 'components/DjCheckbox'
+import DjUeditor from 'components/DjUEditor'
 
 Vue.use(Switch)
 export default {
   mixins: [mixin], // 将props和计算属性tagsList(标签列表)混入
   components: {
-    DjUpload, DjCheckbox
+    DjUpload, DjCheckbox, DjUeditor
   },
   data () {
     return {
