@@ -39,7 +39,7 @@ export default {
       type: Number,
       default: 1
     },
-    // { name: '', url: '' }
+    // { name: '', url: '' }, 已上传图片列表
     filedata: {
       type: Array,
       default: () => {
@@ -49,13 +49,15 @@ export default {
   },
   data () {
     return {
-      fileList: this.filedata,
-      baseUrl: `${baseUrl}upload.php`,
+      fileList: this.filedata, // 上传图片列表
+      baseUrl: `${baseUrl}upload.php`, // 上传地址
+      // 上传参数配置
       upData: {
         c: 'Upload',
         a: 'index',
         type: 5
       },
+      // 是否放大图片显示
       dialogImageUrl: '',
       dialogVisible: false
 
@@ -83,6 +85,7 @@ export default {
         this.upLoser(res)
       }
     },
+    // 上传失败
     upLoser (res) {
       if (res.data) {
         this.$message.error(res.data)
@@ -108,13 +111,10 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
+    // 警告
     upExceed () {
       this.$message(`最多上传${this.max}张图片`)
     }
   }
 }
 </script>
-
-<style lang='stylus' scoped>
-
-</style>

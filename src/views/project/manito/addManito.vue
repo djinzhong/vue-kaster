@@ -106,6 +106,6 @@ export default {
 <style lang='stylus' scoped>
 .form
   width 800px
-  margin 20px auto
+  margin 20px 0
   text-align left
 </style>

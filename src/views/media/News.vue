@@ -2,6 +2,8 @@
   <router-view v-if="data && tagList"
                @searchName="searchName"
                @truning="truning"
+               @renewalTag="_getTags"
+               @renewalNews="_getList"
                :data="data"
                :page="page"
                :allPage="allPage"
@@ -11,9 +13,6 @@
 <script>
 import { postNews } from 'api/index'
 export default {
-  components: {
-
-  },
   data () {
     return {
       data: null, // 新闻数据 {Array}
@@ -27,27 +26,28 @@ export default {
     this._getTags()
   },
   methods: {
+    // 请求新闻列表
     _getList () {
       postNews('list', { page: this.page }).then(res => {
-        this.data = res.list
-        if (res.allPage) {
-          this.allPage = res.allPage
-        }
+        if (res && res.list) this.data = res.list
+        if (res && res.allPage) this.allPage = res.allPage
       })
     },
+    // 检索name
     searchName (name) {
       postNews('list', { page: this.page = 1, title: name }).then(res => {
-        this.data = res.list
-        if (res.allPage) {
-          this.allPage = res.allPage
-        }
+        if (res && res.list) this.data = res.list
+        if (res && res.allPage) this.allPage = res.allPage
       })
     },
+    // 请求标签信息
     _getTags () {
       postNews('type').then(res => {
+        this.tagList = []
         this.tagList = res
       })
     },
+    // 页面更新
     truning (val) {
       this.page = val
       this._getList()
@@ -55,5 +55,3 @@ export default {
   }
 }
 </script>
-
-<style lang='stylus' scoped></style>

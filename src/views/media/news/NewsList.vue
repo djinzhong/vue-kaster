@@ -24,10 +24,10 @@
         <template slot-scope="scope">
           <el-button size="mini"
                      type="primary"
-                     @click.native.prevent="$router.push({name: 'addNews', query: {id: scope.row._id}})">编辑</el-button>
+                     @click.native.prevent="$router.push({name: 'addNews', query: {id: scope.row.id}})">编辑</el-button>
           <el-button size="mini"
                      type="danger"
-                     @click.native.prevent="delRow(scope.row._id)">删除</el-button>
+                     @click.native.prevent="delRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

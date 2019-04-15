@@ -31,10 +31,14 @@ export default {
       }
     }
   },
+  computed: {
+    cities: function () {
+      return this.cityOptions
+    }
+  },
   data () {
     return {
       checkAll: false,
-      cities: this.cityOptions,
       checkedCities: this.checkedDetails, // 当前选中
       isIndeterminate: true
     }
