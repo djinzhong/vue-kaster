@@ -43,12 +43,14 @@
                     :label="item.value.toString()">{{item.text}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="上传封面">
+      <el-form-item label="上传封面"
+                    v-if="filedata">
         <dj-upload ref="images"
                    :max='3'
                    :filedata="filedata" />
       </el-form-item>
       <el-form-item label="标签"
+                    v-if="checkedDetails"
                     prop="checkedDetails">
         <dj-checkbox class="inline-block"
                      ref="tagsCheckbox"
@@ -76,7 +78,7 @@
 import Vue from 'vue'
 import { postNews } from 'api/index'
 import { Switch } from 'element-ui'
-import { detailsNewsForm, typeList } from '../config/table.config.js'
+import { typeList } from '../config/table.config.js'
 import { mixin } from '../config/mixin.js'
 import DjUpload from 'components/DjUpload' // 上传图片组件
 import DjCheckbox from 'components/DjCheckbox'
@@ -91,11 +93,25 @@ export default {
   },
   data () {
     return {
-      form: {}, // 新闻表单信息
+      form: {
+        title: '',
+        author: '',
+        sort: '1',
+        views: '100',
+        praise: '100',
+        desc: '',
+        status: '1',
+        type: '1',
+        tags: '',
+        cover_1: '', // 封面图
+        cover_2: '',
+        cover_3: '',
+        content: null
+      }, // 新闻表单信息
       typeList: typeList, // 类型
-      filedata: [], // 封面列表
-      checkedDetails: [], // 标签默认选中
-      // 新增新闻表单
+      filedata: null, // 封面列表
+      checkedDetails: null, // 标签默认选中
+      // 新增新闻表单验证
       addNewsRules: {
         title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
         checkedDetails: [{ required: true, trigger: 'blur' }]
@@ -105,44 +121,40 @@ export default {
   },
   computed: {
     id: function () {
-      return this.$route.query.id
+      return +this.$route.query.id
     }
   },
   created () {
-    for (let key in detailsNewsForm) {
-      this.form[key] = detailsNewsForm[key]
-    }
-    if (+this.id === 0) {
-      this.text = '新增'
+    if (this.id === 0) {
+      // 初始化数据
       this.form.content = ' '
-    } else {
-      this.text = '修改'
-      let newsData = this.data.filter(item => item.id === this.id)[0]
-      if (newsData) {
-        for (let key in this.form) {
-          this.form[key] = newsData[key]
-        }
-      }
-      postNews('get', { id: this.id }).then(res => {
-        if (res) {
-          this.form.content = res.content || ' '
-        }
-      })
-      // 解析标签字符串并去除最后一个空元素
-      let tagDetailslist = this.form.tags.split('|')
-      tagDetailslist.pop()
-      this.checkedDetails = tagDetailslist
-
-      // 解析图片列表
+      this.checkedDetails = []
       this.filedata = []
-      if (this.form.cover_1 !== '') this.filedata.push({ name: 'cover_1.png', url: this.form.cover_1 })
-      if (this.form.cover_2 !== '') this.filedata.push({ name: 'cover_2.png', url: this.form.cover_2 })
-      if (this.form.cover_3 !== '') this.filedata.push({ name: 'cover_3.png', url: this.form.cover_3 })
-
-      console.log(this.form)
+    } else {
+      this.initNewsForm()
     }
   },
   methods: {
+    // 修改时先渲染修改前数据
+    initNewsForm () {
+      this.text = '修改'
+      postNews('get', { id: this.id }).then(res => {
+        if (res) {
+          this.form = res
+
+          // 解析标签字符串并去除最后一个空元素
+          let tagDetailslist = this.form.tags.split('|')
+          tagDetailslist.pop()
+          this.checkedDetails = tagDetailslist
+
+          // 解析图片列表
+          this.filedata = []
+          if (this.form.cover_1 !== '') this.filedata.push({ name: 'cover_1.png', url: this.form.cover_1 })
+          if (this.form.cover_2 !== '') this.filedata.push({ name: 'cover_2.png', url: this.form.cover_2 })
+          if (this.form.cover_3 !== '') this.filedata.push({ name: 'cover_3.png', url: this.form.cover_3 })
+        }
+      })
+    },
     // 提交新闻
     addNews () {
       if (this.form.title === '') {

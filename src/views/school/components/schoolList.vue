@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-table :data="tableData"
-              height="calc(100% - 80px)"
+              height="100%"
               style="width: 100%">
       <!-- 基础数据 -->
       <el-table-column type="index"
                        width="50" />
-      <dj-table-column v-for="(item,index) in videoTableList"
+      <dj-table-column v-for="(item,index) in schoolTableList"
                        :key="index"
                        :item="item" />
       <!-- 操作 -->
@@ -22,26 +22,24 @@
         <template slot-scope="scope">
           <el-button size="mini"
                      type="primary"
-                     @click.native.prevent="$router.push({name: 'addVideo', query: {id: scope.row.id}})">编辑</el-button>
+                     @click.native.prevent="$router.push({name: 'addSchool', query: {id: scope.row.id}})">编辑</el-button>
           <el-button size="mini"
                      type="danger"
                      @click.native.prevent="delRow(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <dj-pagination :allPage="allPage"
-                   :page="page"
-                   @truning="truning" />
   </div>
 </template>
 
 <script>
-import { postVideo } from 'api/index' // 后台接口方法
-import { videoTableList } from '../config/table.config.js'
-import DjPagination from 'components/DjPagination'
+import { postSchool } from 'api/index'
+import { schoolTableList } from '../config/table.config.js'
+import { typeFormatter } from 'utils/formatter'
+import { tableFilter } from 'utils/filter'
 export default {
   components: {
-    DjPagination
+
   },
   props: {
     data: {
@@ -49,33 +47,56 @@ export default {
       default: () => {
         return []
       }
-    },
-    page: Number,
-    allPage: Number
+    }
   },
   computed: {
+    // title检索
     tableData: function () {
       return this.data.filter(data => !this.searchValue || data.title.toLowerCase().includes(this.searchValue.toLowerCase()))
+    },
+    // 将目录配置的code 筛选出来
+    codeList: function () {
+      let list = [
+        { text: '马球运动', value: 1000 },
+        { text: '马术比赛', value: 999 }
+      ]
+      let catalogueList = this.data.filter(item => +item.type === 3 || +item.type === 4)
+      let catalogue = catalogueList.map(item => {
+        return {
+          text: item.title,
+          value: +item.code
+        }
+      })
+      return list.concat(catalogue)
     }
   },
   data () {
     return {
-      videoTableList: videoTableList,
-      searchValue: ''
+      schoolTableList: schoolTableList, // 表格配置
+      searchValue: '' // 搜索词
     }
   },
+  created () {
+    this.setCode()
+  },
   methods: {
-    // 删除视频
+    // code 过滤与格式化
+    setCode () {
+      const siteNum = 3
+      this.$set(this.schoolTableList[siteNum], 'formatter', typeFormatter('code', this.codeList))
+      this.$set(this.schoolTableList[siteNum], 'filters', this.codeList)
+      this.$set(this.schoolTableList[siteNum], 'filterMethod', tableFilter('code'))
+    },
     delRow (id) {
-      postVideo('del', { id: id }).then(res => {
+      postSchool('operate', {
+        id: id,
+        operate_type: 3
+      }).then(res => {
         if (res) {
           this.$message.success('删除成功')
-          this.$emit('renewalVideo')
+          this.$emit('renewalSchool')
         }
       })
-    },
-    truning (val) {
-      this.$emit('truning', val)
     }
   }
 }

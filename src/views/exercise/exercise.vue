@@ -1,49 +1,58 @@
 <template>
-  <div>
-    <ul v-for="i in 6"
-        :key="i">
-      <li>
-        <el-button type="text"
-                   v-if="i % 2 === 0"
-                   @click="dialogVisible = true">点击打开 Dialog</el-button>
-      </li>
-    </ul>
+  <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            style="width: 100%">
+    <el-table-column label="Date"
+                     prop="date">
+    </el-table-column>
+    <el-table-column label="Name"
+                     prop="name">
+    </el-table-column>
+    <el-table-column align="right" label="操作" prop="name">
 
-    <el-dialog title="提示"
-               :visible.sync="dialogVisible"
-               width="30%"
-               :before-close="handleClose">
-      <span>这是一段信息</span>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary"
-                   @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
-  </div>
+      <template slot-scope="scope">
+        <el-button size="mini"
+                   @click="handleEdit(scope.$index, scope.row, scope.column)">Edit</el-button>
+        <el-button size="mini"
+                   type="danger"
+                   @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
-import Vue from 'vue'
-import { dialog } from 'element-ui'
-Vue.use(dialog)
 export default {
   data () {
     return {
-      dialogVisible: false
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }],
+      search: ''
     }
   },
   methods: {
-    handleClose (done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => { })
+    handleEdit (index, row, colum) {
+      console.log(index)
+      console.log(row)
+      console.log(colum)
+    },
+    handleDelete (index, row) {
+      console.log(index, row)
     }
   }
 }
 </script>
-
-<style lang='stylus' scoped></style>

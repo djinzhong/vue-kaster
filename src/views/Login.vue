@@ -50,13 +50,16 @@ export default {
         if (valid) {
           postLogin(this.ruleForm).then(
             res => {
-              this.$message.success('登录成功，正在为您跳转！')
-              localStorage.setItem('ssId', res.ss_id)
-              localStorage.setItem('uid', res.uid)
-              localStorage.setItem('isLogin', true)
-              setTimeout(() => {
-                this.$router.push({ name: 'home' })
-              }, 500)
+              if (res) {
+                this.$message.success('登录成功，正在为您跳转！')
+                localStorage.setItem('ssId', res.ss_id)
+                localStorage.setItem('uid', res.uid)
+                localStorage.setItem('isLogin', true)
+                localStorage.setItem('group', res.group)
+                setTimeout(() => {
+                  this.$router.push({ name: 'home' })
+                }, 500)
+              }
             }
           )
         } else {

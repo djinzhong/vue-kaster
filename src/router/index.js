@@ -8,6 +8,9 @@ import {
 
 import mediaRouter from 'router/media/index'
 import projectRouter from 'router/project/index'
+import schoolRouter from 'router/school/index'
+import tashRouter from 'router/task/index'
+import jurisdictionRouter from 'router/jurisdictionRouter/index'
 
 Vue.use(Router)
 
@@ -26,8 +29,11 @@ const routes = [{
 }]
 
 addSubmoduleRoutes(routes, {
-  '/media/': mediaRouter,
-  '/godPlan/': projectRouter
+  '/media/': mediaRouter, // 新闻视频
+  '/godPlan/': projectRouter, // 大神方案
+  '/school/': schoolRouter, // 学堂
+  '/task/': tashRouter, // 任务配置
+  '/jurisdiction/': jurisdictionRouter // 权限配置
 })
 
 export default new Router({

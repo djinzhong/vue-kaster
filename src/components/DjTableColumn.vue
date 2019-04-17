@@ -7,7 +7,8 @@
                    :sort-method="item.sortMethod"
                    :filters="item.filters"
                    :filter-method="item.filterMethod"
-                   :label="item.label" />
+                   :label="item.label">
+  </el-table-column>
 </template>
 
 <script>

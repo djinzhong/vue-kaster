@@ -8,7 +8,8 @@
                        width="50" />
       <dj-table-column v-for="(item,index) in newsTableList"
                        :key="index"
-                       :item="item" />
+                       :item="item">
+      </dj-table-column>
       <!-- 操作 -->
       <el-table-column width="220"
                        align="right"
@@ -31,7 +32,9 @@
         </template>
       </el-table-column>
     </el-table>
-    <dj-pagination :allPage="allPage" :page="page" @truning="truning" />
+    <dj-pagination :allPage="allPage"
+                   :page="page"
+                   @truning="truning" />
   </div>
 </template>
 

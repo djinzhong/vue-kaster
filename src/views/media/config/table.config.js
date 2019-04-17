@@ -51,25 +51,8 @@ const videoTableList = [
   { prop: 'status', width: '80', label: '状态', formatter: typeFormatter('status', statusList), filters: statusList, filterMethod: tableFilter('status') }
 ]
 
-const detailsNewsForm = {
-  title: '',
-  author: '',
-  sort: '1',
-  views: '100',
-  praise: '100',
-  desc: '',
-  status: '1',
-  type: '1',
-  tags: '',
-  cover_1: '', // 封面图
-  cover_2: '',
-  cover_3: '',
-  content: null
-}
-
 export {
   newsTableList,
   typeList,
-  detailsNewsForm,
   videoTableList
 }
