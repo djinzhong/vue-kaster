@@ -12,7 +12,15 @@ import {
   FormItem,
   Input,
   Table,
-  TableColumn
+  TableColumn,
+  Card,
+  Popover,
+  Pagination,
+  Upload,
+  Dialog,
+  Select,
+  Option,
+  DatePicker
 } from 'element-ui'
 
 Vue.use(Button)
@@ -27,5 +35,13 @@ Vue.use(Button)
   .use(Input)
   .use(Table)
   .use(TableColumn)
+  .use(Card)
+  .use(Popover)
+  .use(Pagination)
+  .use(Upload)
+  .use(Dialog)
+  .use(Select)
+  .use(Option)
+  .use(DatePicker)
 
 Vue.prototype.$message = Message

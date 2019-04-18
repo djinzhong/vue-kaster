@@ -1,24 +1,39 @@
 <template>
-  <el-form :model="ruleForm"
-           :rules="rules"
-           ref="ruleForm"
-           label-width="100px"
-           class="demo-ruleForm">
-    <el-form-item label="账号"
-                  prop="name">
-      <el-input v-model="ruleForm.name"></el-input>
-    </el-form-item>
-    <el-form-item label="密码"
-                  prop="pwd">
-      <el-input placeholder="请输入密码"
-                v-model="ruleForm.pwd"
-                show-password></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary"
-                 @click="submitForm('ruleForm')">立即登录</el-button>
-    </el-form-item>
-  </el-form>
+  <div id="login">
+    <div class="login-box">
+      <h1 class="title">懂马帝后台管理系统</h1>
+      <el-card shadow="always"
+               class="login-form">
+        <div slot="header"
+             class="form-title">
+          <span>密码登录</span>
+        </div>
+        <el-form :model="loginForm"
+                 :rules="rules"
+                 ref="loginForm"
+                 status-icon
+                 class="form-model">
+          <el-form-item prop="name">
+            <el-input type="text"
+                      v-model="loginForm.name"
+                      auto-complete="off"
+                      placeholder="请输入登录账号"></el-input>
+          </el-form-item>
+          <el-form-item prop="pwd">
+            <el-input type="password"
+                      v-model="loginForm.pwd"
+                      auto-complete="off"
+                      placeholder="请输入登录密码"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="form-sub"
+                       type="primary"
+                       @click="submitForm">登录</el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +41,7 @@ import { postLogin } from 'api/index'
 export default {
   data () {
     return {
-      ruleForm: {
+      loginForm: {
         name: '',
         pwd: ''
       },
@@ -41,39 +56,59 @@ export default {
 
     }
   },
-  created () {
-    localStorage.clear()
-  },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          postLogin(this.ruleForm).then(
-            res => {
-              if (res) {
-                this.$message.success('登录成功，正在为您跳转！')
-                localStorage.setItem('ssId', res.ss_id)
-                localStorage.setItem('uid', res.uid)
-                localStorage.setItem('isLogin', true)
-                localStorage.setItem('group', res.group)
-                setTimeout(() => {
-                  this.$router.push({ name: 'home' })
-                }, 500)
-              }
-            }
-          )
+          this.postLogin()
         } else {
+          this.$message.error('账号或密码不能为空')
           return false
         }
       })
+    },
+    postLogin () {
+      postLogin(this.loginForm).then(
+        res => {
+          if (res) {
+            this.$store.dispatch('setToken', res).then(() => {
+              this.$message.success('登录成功，正在为您跳转！')
+              this.$router.push({ name: 'home' })
+            }).catch(err => {
+              this.$message.error(err)
+            })
+          }
+        }
+      )
     }
   }
 }
 </script>
 
 <style lang='stylus' scoped>
-.demo-ruleForm
-  width 400px
-  margin 40px auto
+#login
+  width 100%
+  height 100%
+  background-color #2d3a4b
   text-align left
+  .login-box
+    display flex
+    width 990px
+    margin 120px auto
+    height 388px
+    .title
+      font-size 36px
+      font-weight 600
+      color #ffffff
+      width 500px
+    .login-form
+      width 380px
+      height 325px
+      margin-top 10px
+      .form-title
+        font-size 18px
+        font-weight 400
+      .form-model
+        .form-sub
+          width 100%
 </style>

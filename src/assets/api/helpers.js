@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import vueResource from 'vue-resource'
-import router from 'router/index'
+import Cookies from 'js-cookie'
+import store from 'store/index'
 import {
   message
 } from 'element-ui'
@@ -31,8 +32,8 @@ export function post (cData) {
   return function (aData, params = {}) {
     // 后台约定请求信息格式
     let user = {
-      uid: localStorage.getItem('uid'),
-      ssid: localStorage.getItem('ssId')
+      uid: store.getters.uid,
+      ssid: store.getters.ssid
     }
     let obj = Object.assign(user, params)
     let sendData = {
@@ -61,9 +62,8 @@ export function post (cData) {
               message: resData.data,
               type: 'error'
             })
-            router.push({
-              name: 'login'
-            })
+            Cookies.remove('token')
+            location.reload()
             break
           case ERR_VERIFY:
             message({

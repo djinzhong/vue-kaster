@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <dj-nav class="nav" />
+    <dj-nav class="nav" v-if="isNav" />
     <router-view class="home" />
   </div>
 </template>
@@ -9,6 +9,11 @@ import DjNav from 'views/nav/Nav.vue'
 export default {
   components: {
     DjNav
+  },
+  computed: {
+    isNav () {
+      return this.$route.path !== '/login'
+    }
   }
 }
 </script>
@@ -45,5 +50,6 @@ body {
   flex-shrink: 1;
   padding: 20px 10px;
   overflow: auto;
+  text-align: left
 }
 </style>

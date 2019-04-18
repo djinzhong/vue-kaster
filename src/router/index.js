@@ -11,6 +11,7 @@ import projectRouter from 'router/project/index'
 import schoolRouter from 'router/school/index'
 import tashRouter from 'router/task/index'
 import jurisdictionRouter from 'router/jurisdictionRouter/index'
+import gameRouter from 'router/game/index'
 
 Vue.use(Router)
 
@@ -33,7 +34,8 @@ addSubmoduleRoutes(routes, {
   '/godPlan/': projectRouter, // 大神方案
   '/school/': schoolRouter, // 学堂
   '/task/': tashRouter, // 任务配置
-  '/jurisdiction/': jurisdictionRouter // 权限配置
+  '/jurisdiction/': jurisdictionRouter, // 权限配置
+  '/game/': gameRouter // 比赛配置
 })
 
 export default new Router({

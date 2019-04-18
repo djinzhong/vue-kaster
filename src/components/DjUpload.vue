@@ -23,12 +23,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import axios from 'axios'
 import { baseUrl } from 'api/helpers'
-import { Upload, Dialog } from 'element-ui'
-
-Vue.use(Upload).use(Dialog)
 export default {
   props: {
     type: {

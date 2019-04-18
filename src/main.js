@@ -13,19 +13,26 @@ Vue.component('DjBreadcrumb', DjBreadcrumb)
 
 Vue.config.productionTip = false
 
-router.beforeEach(
-  (to, from, next) => {
-    if (to.name === 'login') {
-      next()
+//  获取角色信息，根据用户权限动态加载路由
+router.beforeEach((to, from, next) => {
+  if (store.getters.token) {
+    store.dispatch('setToken', store.getters.token)
+    if (to.path === '/login') {
+      next({
+        name: 'home'
+      })
     } else {
-      if (localStorage.getItem('isLogin')) {
-        next()
-      } else {
-        next({ name: 'login' })
-      }
+      next()
     }
+  } else {
+    if (to.path === '/login') {
+      next()
+    }
+    next({
+      path: '/login'
+    })
   }
-)
+})
 
 new Vue({
   router,
