@@ -50,7 +50,7 @@
         <i class="el-icon-warning"
            @click="isExplain = !isExplain" />
         <span class="explain"
-              v-if="!isExplain">点击查看全部code</span>
+              v-if="!isExplain">点击查看已有code</span>
         <span class="explain"
               v-if="isExplain">{{codeList}}</span>
       </el-form-item>
@@ -207,12 +207,18 @@ export default {
         if (this.$refs.ueditor && this.$refs.ueditor.msg) this.form.content = this.$refs.ueditor.msg
       } else {
         // 新增菜单
+        // code
+        let isCode = this.speed.concat(this.industry).some(item => item.value === +this.form.code)
+        if (isCode) {
+          this.$message.error('请不要填写重复的code')
+          return false
+        }
         // 封面信息处理
         let imagesList = this.$refs.images.fileList
         if (imagesList.length) {
           if (imagesList[0] && imagesList[0].url) this.form.icon = imagesList[0].url
         } else {
-          this.$message.error('请上传新闻封面')
+          this.$message.error('请上传菜单封面')
           return false
         }
       }

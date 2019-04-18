@@ -11,18 +11,13 @@
     <nav-school v-if="isSchool" />
     <nav-manito v-if="isManito" />
     <nav-project v-if="isProject" />
-    <nav-game />
+    <nav-game v-if="isGame" />
     <nav-task />
     <nav-jurisdiction v-if="isReport" />
-    <el-menu-item index="exercise"
-                  :route="{name: 'exercise'}">
-      <i class="el-icon-printer"></i>
-      <span slot="title">练习</span>
-    </el-menu-item>
-    <el-menu-item index="gengxinjindu">
+    <!-- <el-menu-item :index="null">
       <i class="el-icon- iconfont icon-gengxinjindu"></i>
       <span slot="title">更新APP</span>
-    </el-menu-item>
+    </el-menu-item> -->
     <el-menu-item :index="null"
                   @click="loginOut">
       <i class="el-icon- iconfont icon-dingbudaohang-zhangh"></i>
@@ -89,6 +84,9 @@ export default {
     },
     isManito () {
       return this.group.some(a => +a === groudData.okami)
+    },
+    isGame () {
+      return this.group.some(a => +a === groudData.game)
     },
     isProject () {
       return this.group.some(a => +a === groudData.project)

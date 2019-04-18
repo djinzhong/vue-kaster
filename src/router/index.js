@@ -23,11 +23,8 @@ const routes = [{
   path: '/login',
   name: 'login',
   component: Login
-}, {
-  path: '/exercise',
-  name: 'exercise',
-  component: () => import('views/exercise/exercise')
-}]
+}
+]
 
 addSubmoduleRoutes(routes, {
   '/media/': mediaRouter, // 新闻视频

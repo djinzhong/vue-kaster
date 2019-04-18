@@ -1,7 +1,7 @@
 <template>
   <el-submenu index="game">
     <template slot="title">
-      <i class="el-icon- iconfont icon-zhuanjiarenzheng"></i>
+      <i class="el-icon- iconfont icon-bhjsaishi"></i>
       <span>比赛中心</span>
     </template>
     <el-menu-item-group>
